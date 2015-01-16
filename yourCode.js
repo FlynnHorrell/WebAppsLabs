@@ -39,12 +39,29 @@ var binarySearch = function binarySearch(arr, val) {
 var countTags = function countTags(items) {
    // Declare your local variables here. One was done for you.
    var tagCounts;
-
+   var i,j,tag;	
+   tagCounts = {};
+ 
+   for(i=0;i<items.length;i++){
+   		if(!Array.isArray(items[i].tags)){
+   			continue;
+   		}
+   		//myObj.hasOwnProperty('myKey');
+   		for(j=0;j<items[i].tags.length;j++){
+   			tag = items[i].tags[j];
+   			if(tagCounts.hasOwnProperty(tag)){
+   				tagCounts[tag] +=1;
+   			}
+   			else{
+   				tagCounts[tag] = 1;
+   			}
+   		}
+   }
    // Add your code here
-
-
    return tagCounts;
+   	//	}
 };
+//console.log(countTags([{ foo: '' }]));
 
 /*
  * EXTRACT HASHTAGS
