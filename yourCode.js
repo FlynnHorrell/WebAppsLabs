@@ -67,5 +67,38 @@ var countTags = function countTags(items) {
  * EXTRACT HASHTAGS
  */
 var extractHashTags = function extractHashTags(str) {
+   var arr = [];
+   var i,j
+   var seen = [];
+   var r = /#[a-zA-Z]+/g; 
+   arr = str.match(r);
 
+  
+   if(!Array.isArray(arr)){
+      arr = [];
+   }
+
+   for(i = 0;i<arr.length;i++){
+      arr[i] = arr[i].substr(1);    
+   }
+
+   for(j = 0;j<arr.length;j++){
+      if(seen.indexOf(arr[j])===-1){
+         seen.push(arr[j]);
+      }
+   }
+
+   return seen;
 };
+
+
+
+
+
+
+
+
+
+
+
+
