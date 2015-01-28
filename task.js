@@ -72,6 +72,75 @@ function makeTaskFromString(str){
 
 proto = {
    // Add instance methods here
+   setTitle: function setTitle(s){
+      "use strict";
+      this.title = s.trim();
+   },
+   isCompleted: function isCompleted(){
+      "use strict";
+      return this.completedTime != null;
+   },
+   toggleCompleted: function toggleCompleted(){
+      "use strict";
+      if (this.isCompleted()){
+            this.completedTime = null;
+      }else {
+            this.completedTime = new Date();
+      }
+   },
+   hasTag: function hasTag(s){
+      "use strict";
+      return Object.hasOwnProperty(this.tags);
+   },
+   addTag: function addTag(s){
+      "use strict";
+      if (!this.hasTag(s)){
+         this.tags.push(s);
+      }
+   },
+   removeTag: function removeTag(s){
+      "use strict";
+      if (this.hasTag(s)){
+         return this.tags.splice(this.tags.indexOf(s), 1);
+      }
+   },
+   toggleTag: function toggleTag(s){
+      "use strict";
+      if (this.hasTag(s)){
+         this.addTag(s);
+      }else {
+         return this.removeTag(s);
+      }
+   },
+   addTags: function addTags(tags){
+      "use strict";
+      var i;
+      for (i = 0;i < tags.length;i += 1){
+         this.addTag(tags[ i ]);
+      }
+   },
+   removeTags: function removeTags(tags){
+      "use strict";
+      var i;
+      for (i = 0;i < tags.length;i += 1){
+         this.removeTag(tags[ i ]);
+      }
+   },
+   toggleTags: function toggleTags(tags){
+      "use strict";
+      var i;
+      for (i = 0;i < tags.length;i += 1){
+         this.toggleTag(tags[ i ]);
+      }
+   },
+   clone: function clone(){
+      "use strict";
+      var copy = makeNewTask();
+      copy.setTitle(this.title);
+      copy.addTags(this.tags);
+      copy.completedTime = this.CompletedTime;
+      return copy;
+   }
 };
 
 
