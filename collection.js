@@ -13,6 +13,15 @@ Task = require("./task");
  */
 
 function makeNewCollection(arr) {
+	collection = Object.create(proto);
+	this.defineProperty(collection, "values", {
+		values: [],
+		writable: false
+	}
+	if Array.isArray(arr){
+		forEach(add);
+	}
+	Object.preventExtensions(collection);
 
 };
 
