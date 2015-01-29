@@ -57,12 +57,16 @@ function makeNewTask() {
 
 function makeTaskFromObject(o){
     "use strict";
+    var o2 = makeNewTask();
+    o2.setTitle(o.title);
+    o2.addTags(o.tags);
+    return o2;
 }
 
 
 function makeTaskFromString(str){
     "use strict";
-    return processString(str);
+    return makeTaskFromObject(processString(str));
 }
 
 

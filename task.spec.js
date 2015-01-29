@@ -27,8 +27,8 @@ describe("makeNewTask", function(){
        expect(Array.isArray(task.tags)).to.equal(true);
     });
     it("creates an id for each task that is unique", function(){
-    	var task2 = Task.new();
-    	expect(task.id===task2.id).to.equal(false);
+        var task2 = Task.new();
+        expect(task.id===task2.id).to.equal(false);
     });
 });
 
@@ -112,5 +112,26 @@ describe("ProtoMethods", function(){
         expect(task2.hasTag("qwe"));
         expect(task2.title === task.title).to.equal(true);
         expect(task2.completedTime === task.completedTime).to.equal(true);
+    });
+});
+describe("makeTaskFrom Object", function(){
+    "use strict";
+    var o = { title: "hello", tags: [ "I" ]};
+    var task = Task.fromObject(o);
+    it("correctly gets the title", function(){
+        expect(task.title).to.equal("hello");
+    });
+    it("correctly gets the tags", function(){
+        expect(task.hasTag("I")).to.equal(true);
+    });
+
+describe("makeTaskFrom String", function(){
+    var s = " hi there! #hottopic ", task = Task.fromString(s);
+    it("correctly gets the title", function(){
+        expect(task.title).to.equal("hi there!");
+    });
+    it("correctly gets the tags", function(){
+        expect(task.hasTag("hottopic")).to.equal(true);
+    });
     });
 });
