@@ -36,7 +36,7 @@ function counter() {
 
 function makeNewTask() {
     "use strict";
-   var o = Object.create(null);
+   var o = Object.create(proto);
       o.title = "";
       o.completedTime = null;
       Object.defineProperty(o, "id", {
@@ -90,7 +90,7 @@ proto = {
    },
    hasTag: function hasTag(s){
       "use strict";
-      return Object.hasOwnProperty(this.tags);
+      return this.tags.indexOf(s) !== -1;
    },
    addTag: function addTag(s){
       "use strict";
@@ -106,7 +106,7 @@ proto = {
    },
    toggleTag: function toggleTag(s){
       "use strict";
-      if (this.hasTag(s)){
+      if (!this.hasTag(s)){
          this.addTag(s);
       }else {
          return this.removeTag(s);
@@ -138,7 +138,7 @@ proto = {
       var copy = makeNewTask();
       copy.setTitle(this.title);
       copy.addTags(this.tags);
-      copy.completedTime = this.CompletedTime;
+      copy.completedTime = this.completedTime;
       return copy;
    }
 };
