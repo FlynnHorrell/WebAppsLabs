@@ -31,8 +31,15 @@ function makeNewCollection(arr) {
  */
 
 proto={
-   //Add instance methods here
-
+   length: function length(){
+   	"use strict";
+   	return collection.values.length;
+   }
+   isEmpty: function isEmpty(){
+   	"use strict";
+   	return collection.values.isEmpty();
+   }
+   
 }
 
 
