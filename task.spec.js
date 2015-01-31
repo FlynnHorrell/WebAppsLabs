@@ -28,7 +28,7 @@ describe("makeNewTask", function(){
     });
     it("creates an id for each task that is unique", function(){
         var task2 = Task.new();
-        expect(task.id===task2.id).to.equal(false);
+        expect(task.id === task2.id).to.equal(false);
     });
 });
 
@@ -116,8 +116,7 @@ describe("ProtoMethods", function(){
 });
 describe("makeTaskFrom Object", function(){
     "use strict";
-    var o = { title: "hello", tags: [ "I" ]};
-    var task = Task.fromObject(o);
+    var o = { title: "hello", tags: [ "I" ] }, task = Task.fromObject(o);
     it("correctly gets the title", function(){
         expect(task.title).to.equal("hello");
     });

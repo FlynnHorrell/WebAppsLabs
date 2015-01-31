@@ -11,13 +11,6 @@ Task = require("./task");
 /*
  *       Constructors
  */
-function addOneTask(task){
-	"use strict";
-if (!has(task)){
-   this.values.push(task);
-}
-}
-
 
 function help(a){
 	"use strict";
@@ -33,7 +26,7 @@ function makeNewCollection(arr){
 		writable: false
 	});
 	if (Array.isArray(arr)){
-		values.forEach(add);
+		values.forEach(add());
 	}
 	Object.preventExtensions(collection);
 
@@ -61,18 +54,22 @@ proto = {
    return this.values[ help(arg) ]
    }
     }*/
+  /*
   has: function has(arg){
   "use strict";
   return help(arg) !== -1;
    },
+   */
   add: function add(task){              //  adds multiple tasks from an array
      "use strict";
   tasks.forEach(addOneTask);
   return this;
   },
-  new: function new(){
+  new: function newTask(){
   "use strict";
-  this.values.push(Task.new());
+  var task = Task.new();
+  this.add(task);
+  return task;
   },
   remove: function remove(arg){
   "use strict";
@@ -88,7 +85,14 @@ proto = {
   forEach: function forEach(f){   //f is a function
   values.forEach(f);
   return this;
+  },
+  function addOneTask(task){
+  "use strict";
+   if (!has(task)){
+   this.values.push(task);
+   }
   }
+
 };
 
 
