@@ -23,6 +23,7 @@ function makeNewCollection(arr){
 		this.values.forEach(this.add());
 	}
 	Object.preventExtensions(collection);
+  return collection;
 }
 
 
@@ -99,7 +100,7 @@ proto = {
   return this;
   },
 
-  new: function newTask(){
+  newTask: function newTask(){
   "use strict";
   var task = Task.new();
   this.add(task);
