@@ -16,6 +16,8 @@ describe("makeNewCollection", function(){
     var collection;
     it("creates an empty array with no arguments given", function(){
        collection = TaskCollection.new();
+       console.log(collection);
+       console.log(collection.values);
        expect(Array.isArray(collection.values));
        expect(collection.values.length === 0);
     });
@@ -25,7 +27,7 @@ describe("makeNewCollection", function(){
        expect(collection.values.length === 2);
     });
 });
-
+/*
 describe("protoMethods", function(){
 	"use strict";
     var collection, task, task2;
@@ -75,7 +77,7 @@ describe("protoMethods", function(){
     it("get returns a task matching the function given" , function(){
 
     });
-	*/
+
 
     it("get returns a task matching the id given", function(){
         expect(collection.get(1) == null);
@@ -121,4 +123,6 @@ describe("protoMethods", function(){
 
     });
 	*/
+/*
 });
+*/

@@ -12,30 +12,65 @@ Task = require("./task");
  *       Constructors
  */
 
-function help(a){
-	"use strict";
-   return this.values.indexOf(a);
-}
-
-
 function makeNewCollection(arr){
 	"use strict";
 	var collection = Object.create(proto);
-	this.defineProperty(collection, "values", {
+	Object.defineProperty(collection, "values", {
 		value: [],
 		writable: false
 	});
 	if (Array.isArray(arr)){
-		values.forEach(add());
+		this.values.forEach(this.add());
 	}
 	Object.preventExtensions(collection);
-
 }
 
 
 /*
  *       Prototype / Instance methods
  */
+ function addOneTask(task){
+  "use strict";
+   if (!this.has(task)){
+   this.values.push(task);
+   }
+  }
+
+ function help(a){
+  "use strict";
+   var i, id;
+   id = -1;
+   if (typeof a === "function"){
+     for (i = 0; i < this.values.length; i += 1){
+       if (a(this.values[ i ])){
+        id = i;
+        break;
+       }
+     }
+   }else if (typeof a === "number"){
+     for (i = 0; i < this.values.length; i += 1){
+       if (a === this.values[ i ].id){
+         id = i;
+         break;
+       }
+      }
+   }else if (typeof a === "string"){
+     for (i = 0; i < this.values.length; i += 1){
+       if (a === this.values[ i ].title){
+         id = i;
+         break;
+       }
+      }
+   }else {
+     for (i = 0; i < this.values.length; i += 1){
+       if (this.values[ i ].title.match(a)){
+        id = i;
+        break;
+        }
+     }
+   }
+   return id;
+}
 
 proto = {
    length: function length(){
@@ -46,25 +81,24 @@ proto = {
    "use strict";
    return this.values.isEmpty();
    },
-/*   get: function get(arg){
+   get: function get(arg){
    "use strict";
-   if (typeof arg === "function"){
-   return arg(this.values);
-   }else if (typeof arg === "number"){
-   return this.values[ help(arg) ]
-   }
-    }*/
-  /*
+   var a = help(arg);
+      if (a !== -1){
+        return this.values[ a ];
+      }
+      return null;
+    },
   has: function has(arg){
   "use strict";
   return help(arg) !== -1;
    },
-   */
   add: function add(task){              //  adds multiple tasks from an array
      "use strict";
-  tasks.forEach(addOneTask);
+  task.forEach(addOneTask);
   return this;
   },
+
   new: function newTask(){
   "use strict";
   var task = Task.new();
@@ -73,26 +107,22 @@ proto = {
   },
   remove: function remove(arg){
   "use strict";
+  var i;
   if (Array.isArray(arg)){
-    for (var i = 0;i < arg.length-1;i+=1){
+    for (i = 0; i < arg.length; i += 1){
         this.values.splice(help(arg), 1);
     }
     return this;
   }
   },
   filter: function filter(arg){
+    "use strict";
   },
-  forEach: function forEach(f){   //f is a function
-  values.forEach(f);
+  forEach: function forEach(f){   // f is a function
+    "use strict";
+    this.values.forEach(f);
   return this;
-  },
-  function addOneTask(task){
-  "use strict";
-   if (!has(task)){
-   this.values.push(task);
-   }
   }
-
 };
 
 
