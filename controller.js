@@ -99,7 +99,11 @@ var makeController = function(element) {
     */
    function addAddButton() {
       var button;   // Should be a reference to the newly created button
+      button = $("<input type='button' />").bind( "click", function() {
+          addNewTask();
+      }).appendTo(el).val("Create New Task");
 
+     
       // Use jQuery syntax to create a new html element
       // Use appropriate append-type jQuery method to add it right after
       // "el"
@@ -119,6 +123,7 @@ var makeController = function(element) {
     * - Return true to not prevent propagation.
     */
    function addNewTask(ev) {
+      ;
       return true;
    };
 
