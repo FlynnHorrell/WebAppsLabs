@@ -40,7 +40,7 @@ var makeController = function(element) {
     * an "input" button for "remove". See examples in sample.html
     */
    function newTaskHTML(str) {
-
+      return "<li><span>" + str + "</span><input type=\"button\" class=\"remove\" value=\"Remove\"></li>";
    }
 
    /*
@@ -101,7 +101,7 @@ var makeController = function(element) {
       var button;   // Should be a reference to the newly created button
       button = $("<input type='button' />").bind( "click", function() {
           addNewTask();
-      }).appendTo(el).val("Create New Task");
+      }).appendTo(el).val("New");
 
      
       // Use jQuery syntax to create a new html element
@@ -123,7 +123,7 @@ var makeController = function(element) {
     * - Return true to not prevent propagation.
     */
    function addNewTask(ev) {
-      ;
+      
       return true;
    };
 
