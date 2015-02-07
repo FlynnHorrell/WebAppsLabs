@@ -58,7 +58,7 @@ var makeController = function(element) {
     * Use jQuery's "prevAll".
     */
    function getIndex(li) {
-
+      return $(li).prevAll().length -1;
    }
 
    /*
