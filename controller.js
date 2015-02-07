@@ -71,7 +71,7 @@ var makeController = function(element) {
     */
    function enableEditMode(li) {
       $(li).children().addClass("hidden");
-      li.append("<input type=\"text\" />").addClass("edit");
+      li.append("<input type=\"text\" class=\"edit\" />");
 
       return li.children("edit");
    }
