@@ -141,7 +141,11 @@ var makeController = function(element) {
     * - Return true to not prevent propagation.
     */
    function removeElement(ev) {
-      
+      var i = getIndex(getLi(ev));
+      tasks.splice(i, 1);
+
+      getLi(ev).remove();
+
       return true;
    };
 
