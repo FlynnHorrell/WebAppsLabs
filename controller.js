@@ -49,7 +49,7 @@ var makeController = function(element) {
     * Use jQuery's "closest".
     */
    function getLi(ev) {
-
+      return $(ev.target).closest( "li" );
    }
 
    /*
@@ -127,7 +127,7 @@ var makeController = function(element) {
       tasks.push(newTaskHTML("New Task"));
 
       newLi = $(newTaskHTML("New Task")).appendTo(el);
-      
+
       return true;
    };
 
@@ -141,6 +141,7 @@ var makeController = function(element) {
     * - Return true to not prevent propagation.
     */
    function removeElement(ev) {
+      
       return true;
    };
 
