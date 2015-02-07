@@ -85,7 +85,10 @@ var makeController = function(element) {
     * - Returns the list item
     */
    function disableEditMode(li) {
+      $(".edit").remove();
+      $(li).children().removeClass("hidden");
 
+      return li;
    }
 
    /*
@@ -208,6 +211,7 @@ var makeController = function(element) {
     */
    function checkForCancel(ev) {
       if (ev.keyCode !== 0x1B) { return true; }
+      disableEditMode(getLi(ev));
 
       return false;
    };
