@@ -123,6 +123,10 @@ var makeController = function(element) {
     * - Return true to not prevent propagation.
     */
    function addNewTask(ev) {
+      var newLi;
+      tasks.push(newTaskHTML("New Task"));
+
+      newLi = $(newTaskHTML("New Task")).appendTo(el);
       
       return true;
    };
