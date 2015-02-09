@@ -4,6 +4,9 @@
  * Controls the interaction between the page and an array of values
  */
 
+
+/* global $ */
+
 /*
  * Used to create a new "controller".
  * "element" needs to be a DOM or jQuery "ul" element.
@@ -11,12 +14,13 @@
 var makeController = function(element) {
    "use strict";
 
-   // el is a jQuery object wrapping "element", in case it wasn't a jQuery
    // object already.
-   var el = $(element);
+   var el, tasks;
+   // el is a jQuery object wrapping "element", in case it wasn't a jQuery
+   el = $(element);
 
    // "tasks" is an array of strings for the tasks to be shown.
-   var tasks = [];
+   tasks = [];
 
    // add an "add" button right after the element
    addAddButton();
@@ -40,7 +44,7 @@ var makeController = function(element) {
     * an "input" button for "remove". See examples in sample.html
     */
    function newTaskHTML(str) {
-      return "<li><span>" + str + "</span><input type=\"button\" class=\"remove\" value=\"Remove\"></li>";
+      return "<li><span>" + str + "</span><input type='button' class='remove' value='Remove'></li>";
    }
 
    /*
@@ -49,7 +53,7 @@ var makeController = function(element) {
     * Use jQuery's "closest".
     */
    function getLi(ev) {
-      return $(ev.target).closest( "li" );
+      return $(ev.target).closest("li");
    }
 
    /*
@@ -58,7 +62,7 @@ var makeController = function(element) {
     * Use jQuery's "prevAll".
     */
    function getIndex(li) {
-      return $(li).prevAll().length -1;
+      return $(li).prevAll().length - 1;
    }
 
    /*
@@ -73,7 +77,7 @@ var makeController = function(element) {
       $(li).children().addClass("hidden");
       li.append("<input type=\"text\" class=\"edit\" />");
 
-      return li.children("edit");
+      return li.children(".edit");
    }
 
    /*
@@ -85,7 +89,7 @@ var makeController = function(element) {
     * - Returns the list item
     */
    function disableEditMode(li) {
-      $(".edit").remove();
+      $(".edit", li).addClass("remove").remove();
       $(li).children().removeClass("hidden");
 
       return li;
@@ -104,12 +108,12 @@ var makeController = function(element) {
     * function.
     */
    function addAddButton() {
-      var button;   // Should be a reference to the newly created button
-      button = $("<input type='button' />").bind( "click", function() {
+      // var button;   // Should be a reference to the newly created button
+      $("<input type='button' />").bind("click", function() {
           addNewTask();
       }).appendTo(el).val("New");
 
-     
+
       // Use jQuery syntax to create a new html element
       // Use appropriate append-type jQuery method to add it right after
       // "el"
@@ -129,13 +133,12 @@ var makeController = function(element) {
     * - Return true to not prevent propagation.
     */
    function addNewTask(ev) {
-      var newLi;
       tasks.push(newTaskHTML("New Task"));
 
-      newLi = $(newTaskHTML("New Task")).appendTo(el);
+      $(newTaskHTML("New Task")).appendTo(el);
 
       return true;
-   };
+   }
 
    /*
     * This method triggers in response to clicking the button with class
@@ -153,7 +156,7 @@ var makeController = function(element) {
       getLi(ev).remove();
 
       return true;
-   };
+   }
 
 
    /*
@@ -167,9 +170,9 @@ var makeController = function(element) {
     */
    function editElement(ev) {
       enableEditMode(getLi(ev)).focus();
-      
+
       return true;
-   };
+   }
 
    /*
     * This method happens when the text input where the user was editing a
@@ -195,8 +198,18 @@ var makeController = function(element) {
     * - Return true to allow propagation
     */
    function commitEditing(ev) {
-      return true;
-   };
+      var val, l; // holds the value of the edit element
+
+      if ($(ev.target).hasClass("remove")) {
+         return true;
+      }
+
+      l = getLi(ev); // holds the list element
+      val = l.children(".edit").val();
+      tasks[ getIndex(l) ] = val;
+      l.children("span").text(val);
+      disableEditMode(l);
+   }
 
    /*
     * This method is meant to react to the case where the user has pressed
@@ -210,11 +223,14 @@ var makeController = function(element) {
     * - Return "false" to prevent propagation in the case of an escape.
     */
    function checkForCancel(ev) {
-      if (ev.keyCode !== 0x1B) { return true; }
+      if (ev.keyCode !== 0x1B) {
+        return true;
+      }
+
       disableEditMode(getLi(ev));
 
       return false;
-   };
+   }
 
    /* You do not need to change anything below this line */
 
