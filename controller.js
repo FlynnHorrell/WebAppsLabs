@@ -198,13 +198,13 @@ var makeController = function(element) {
     * - Return true to allow propagation
     */
    function commitEditing(ev) {
-      var val, l; // holds the value of the edit element
+      var val, l; // holds the value of the edit element and the list element
 
       if ($(ev.target).hasClass("remove")) {
          return true;
       }
 
-      l = getLi(ev); // holds the list element
+      l = getLi(ev);
       val = l.children(".edit").val();
       tasks[ getIndex(l) ] = val;
       l.children("span").text(val);
