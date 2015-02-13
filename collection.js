@@ -56,6 +56,8 @@ function makeNewCollection(arr){
        }
       }
    }else if (typeof a === "string"){
+    console.log(a);
+    console.log(that);
      for (i = 0; i < that.values.length; i += 1){
        if (a === that.values[ i ].title){
          id = i;
@@ -84,21 +86,24 @@ proto = {
    },
    get: function get(arg){
    "use strict";
-   var a = help(arg);
+   var a = help(arg,this);
+   console.log("Inside get", a);
       if (a !== -1){
         return this.values[ a ];
+        console.log("Inside get", this.values[ a ]);
       }
       return null;
     },
   has: function has(arg){
   "use strict";
-  var i;
+ /* var i;
   for(i = 0;i<this.values.length;i+=1){
     if(arg === this.values[i]){
       return true;
     }
    }
-   return false;
+   return false;*/
+   return help(arg,this) !== -1;
   },
   add: function add(task){              //  adds multiple tasks from an array
      "use strict";
@@ -121,7 +126,7 @@ proto = {
   remove: function remove(arg){
   "use strict";
   var i;
-  console.log(arg);
+  //console.log(arg);
   if (Array.isArray(arg)){
     for (i = 0; i < arg.length; i += 1){
         this.values.splice(help(arg,this), 1);
