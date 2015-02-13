@@ -20,12 +20,35 @@ function makeNewCollection(arr){
 		writable: false
 	});
 	if (Array.isArray(arr)){
-    proto.add.call(collection,arr);
+    proto.add.call(collection, arr);
 	}
 	Object.preventExtensions(collection);
   return collection;
 }
 
+function turnArgIntoFunc(a){
+	"use strict";
+	var arg;
+
+	if (typeof a === "number"){
+		arg = function(n){ // n is an integer
+            if (this.values[ n ].id === a){
+            	return this.values[ n ];
+            }
+		}
+	}else if (typeof a === "string"){
+		arg = function(n){
+			if (this.values[ n ].title === a){
+				return this.values[ n ];
+			}
+		}
+	}
+	arg = function(n){
+	if (this.values[ n ].title.match(a)){
+		return this.values[ n ];
+	    }
+    }
+	}
 
 /*
  *       Prototype / Instance methods
@@ -37,7 +60,7 @@ function makeNewCollection(arr){
    }
   }
 
- function help(a, that){
+/* function help(a, that){
   "use strict";
    var i, id;
    id = -1;
@@ -76,32 +99,31 @@ function makeNewCollection(arr){
    }
    console.log("inside help", id);
    return id;
-}
+}*/
 
 proto = {
    length: function length(){
    "use strict";
    return this.values.length;
    },
+
    isEmpty: function isEmpty(){
    "use strict";
    return this.values.length === 0;
    },
+
    get: function get(arg){
    "use strict";
-  /* var a = help(arg,this);
-   console.log("Inside get", a);
-      if (a !== -1){
-        return this.values[ a ];
-        console.log("Inside get", this.values[ a ]);
-      }
-      return null;
-      */
-      if(help(arg)!== -1){
-        return this.values[help(arg,this)];
-      }
-      return null;
-    },
+
+   if (typeof arg !== "function"){
+       turnArgIntoFunc(arg);
+   }
+
+   for(var i = 0; i < collection.length(); i += 1){
+       arg(i);
+   }
+   },
+
   has: function has(arg){
   "use strict";
  /* var i;
