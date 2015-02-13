@@ -42,29 +42,29 @@ function makeNewCollection(arr){
    var i, id;
    id = -1;
    if (typeof a === "function"){
-     for (i = 0; i < this.values.length; i += 1){
-       if (a(this.values[ i ])){
+     for (i = 0; i < that.values.length; i += 1){
+       if (a(that.values[ i ])){
         id = i;
         break;
        }
      }
    }else if (typeof a === "number"){
-     for (i = 0; i < this.values.length; i += 1){
-       if (a === this.values[ i ].id){
+     for (i = 0; i < that.values.length; i += 1){
+       if (a === that.values[ i ].id){
          id = i;
          break;
        }
       }
    }else if (typeof a === "string"){
-     for (i = 0; i < this.values.length; i += 1){
-       if (a === this.values[ i ].title){
+     for (i = 0; i < that.values.length; i += 1){
+       if (a === that.values[ i ].title){
          id = i;
          break;
        }
       }
    }else {
-     for (i = 0; i < this.values.length; i += 1){
-       if (this.values[ i ].title.match(a)){
+     for (i = 0; i < that.values.length; i += 1){
+       if (that.values[ i ].title.match(a)){
         id = i;
         break;
         }
@@ -124,7 +124,7 @@ proto = {
   console.log(arg);
   if (Array.isArray(arg)){
     for (i = 0; i < arg.length; i += 1){
-        this.values.splice(help(arg), 1);
+        this.values.splice(help(arg,this), 1);
     }
     return this;
   }
