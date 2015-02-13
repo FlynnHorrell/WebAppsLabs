@@ -31,24 +31,25 @@ function turnArgIntoFunc(a){
 	var arg;
 
 	if (typeof a === "number"){
-		arg = function(n){ // n is an integer
-            if (this.values[ n ].id === a){
-            	return this.values[ n ];
-            }
+		return function(task){
+            return task.id === a;
 		}
-	}else if (typeof a === "string"){
-		arg = function(n){
+    }
+
+    return a;	
+/*	}else if (typeof a === "string"){
+		return function(task){
 			if (this.values[ n ].title === a){
 				return this.values[ n ];
 			}
 		}
 	}
-	arg = function(n){
+	return function(task){
 	if (this.values[ n ].title.match(a)){
 		return this.values[ n ];
 	    }
     }
-	}
+	}*/
 
 /*
  *       Prototype / Instance methods
@@ -113,15 +114,16 @@ proto = {
    },
 
    get: function get(arg){
-   "use strict";
+	   "use strict";
+	   
+	   arg = turnArgIntoFunc(arg);
 
-   if (typeof arg !== "function"){
-       turnArgIntoFunc(arg);
-   }
-
-   for(var i = 0; i < collection.length(); i += 1){
-       arg(i);
-   }
+	   for(var i = 0; i < this.length(); i += 1){
+	       if (arg(this.values[ i ])){
+	           return this.values[ i ];
+	       }
+	   }
+	   return null;
    },
 
   has: function has(arg){
