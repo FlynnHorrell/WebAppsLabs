@@ -17,12 +17,12 @@ describe("makeNewCollection", function(){
     it("creates an empty array with no arguments given", function(){
        collection = TaskCollection.new();
        expect(Array.isArray(collection.values));
-       expect(collection.values.length === 0);
+       expect(collection.values.length === 0).to.equal(true);
     });
     it("initializes values with elements if given an array", function(){
        var task = Task.new(), task2 = Task.new(), arr = [ task, task2 ];
        collection = TaskCollection.new(arr);
-       expect(collection.values.length === 2);
+       expect(collection.values.length === 2).to.equal(true);
     });
 });
 
@@ -35,7 +35,7 @@ describe("protoMethods", function(){
         task = Task.new();
         task2 = Task.new();
     });
-    it("length returns the correct number of tasks stored", function(){
+/*    it("length returns the correct number of tasks stored", function(){
        expect(collection.length() === 0);
        collection = TaskCollection.new([ task, task2 ]);
        expect(collection.length() === 2);
@@ -54,7 +54,7 @@ describe("protoMethods", function(){
     });
     it("new adds a new task to the collection", function(){
        collection.new();
-       expect(collection.length === 1);
+       expect(collection.length() === 1);
     });
     it("new returns the created task", function(){
        collection.new().setTitle("hello");
@@ -74,27 +74,31 @@ describe("protoMethods", function(){
        collection.remove([ id, id2 ]);
        expect(collection.values.length === 0);
     });
-/*
-    it("get returns a task matching the function given" , function(){
-        var fun = function(task){
-           return task.completedTime == null;
+*/
+/*    it("get returns a task matching the function given" , function(){
+        var fun = function(t){
+           return t.completedTime === null;
         };
         task.toggleCompleted();
         collection.add(task,task2);
-        expect(collection.get(fun)===task2);
+        expect(collection.get(fun) === task2).to.equal(true);
     });
-
+*/
     it("get returns a task matching the id given", function(){
         expect(collection.get(1) == null);
         var id = task.id;
         collection.add(task);
-        expect(collection.get(id).id === id);
+        console.log(task.id);
+        console.log(id);
+        console.log(task);
+        console.log(collection.get(id));
+        expect(collection.get(id) === task);
     });
-    it("get returns a task matching the string given", function(){
+/*    it("get returns a task matching the string given", function(){
         expect(collection.get("hello") == null);
 	    task.setTitle("hello");
 	    collection.add(task);
-	    expect(collection.get("hello").title === "hello");
+	    expect(collection.get("hello") === task);
     });
 
     it("get returns a task matching the regExp given", function(){
@@ -110,7 +114,7 @@ describe("protoMethods", function(){
         expect(!collection.get(fun));
         task.toggleCompleted();
         collection.add(task,task2);
-        expect(collection.get(fun));
+        expect(collection.has(fun));
     });
     it("has finds a task matching the id given", function(){
     	expect(!collection.has(1));
@@ -123,7 +127,7 @@ describe("protoMethods", function(){
 		expect(!collection.get("hello"));
 	    task.setTitle("hello");
 	    collection.add(task);
-	    expect(collection.get("hello"));
+	    expect(collection.has("hello"));
 
     });
 	it("has finds a task matching the regExp given", function(){
@@ -131,8 +135,8 @@ describe("protoMethods", function(){
 	   expect(!collection.get(r));
        task.setTitle("title");
        collection.add(task);
-       expect(collection.get(r));
-    });
+       expect(collection.has(r));
+    });/*
     it("filter returns a collection with tasks matching the function given", function(){
         var collection2, fun;
         fun = function(t){
@@ -169,14 +173,14 @@ describe("protoMethods", function(){
        collection2 = collection.filter(r);
        expect(collection2.has("title"));
        expect(!collection2.has("_ _"));
-    });
+    });*/
 	it("forEach successfully calls a function on each task in the collection", function(){
 		 var fun = function(t){
-           task.toggleCompleted();
+           t.toggleCompleted();
         };
         collection.add([ task, task2 ]);
         collection.forEach(fun);
-        expect(collection.values[ 1 ].isCompleted());
-        expect(collection.values[ 2 ].isCompleted());
-    });*/
+        expect(collection.values[ 0 ].isCompleted()).to.equal(true);
+        expect(collection.values[ 1 ].isCompleted()).to.equal(true);
+    });
 });

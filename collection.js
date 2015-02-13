@@ -41,6 +41,8 @@ function makeNewCollection(arr){
   "use strict";
    var i, id;
    id = -1;
+   console.log("inside help", that);
+   console.log("inside help", typeof a)
    if (typeof a === "function"){
      for (i = 0; i < that.values.length; i += 1){
        if (a(that.values[ i ])){
@@ -72,6 +74,7 @@ function makeNewCollection(arr){
         }
      }
    }
+   console.log("inside help", id);
    return id;
 }
 
@@ -86,11 +89,16 @@ proto = {
    },
    get: function get(arg){
    "use strict";
-   var a = help(arg,this);
+  /* var a = help(arg,this);
    console.log("Inside get", a);
       if (a !== -1){
         return this.values[ a ];
         console.log("Inside get", this.values[ a ]);
+      }
+      return null;
+      */
+      if(help(arg)!== -1){
+        return this.values[help(arg,this)];
       }
       return null;
     },
