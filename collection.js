@@ -205,8 +205,8 @@ proto = {
     "use strict";
     var i, j, collection;
     collection = makeNewCollection();
-    console.log(collection);
-
+   
+    //console.log(arg);
     if(Array.isArray(arg)){
       for(i = 0; i < arg.length; i += 1){
        for(j = 0; j < this.length(); j += 1){

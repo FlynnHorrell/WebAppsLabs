@@ -150,7 +150,7 @@ describe("protoMethods", function(){
        var id, id2, collection2, task3;
        id = task.id;
        id2 = task2.id;
-       task3 = task.new();
+       task3 = Task.new();
        collection.add(task3);
        collection.add([ task, task2 ]);
        collection2 = collection.filter([ id, id2 ]);
