@@ -34,6 +34,10 @@ function turnArgIntoFunc(a){
 		return function(task){
             return task.id === a;
 		};
+  }else if(typeof a === "string"){
+    return function(task){
+            return task.title === a;
+    };
   }
   return a;	
 }
@@ -56,7 +60,8 @@ function turnArgIntoFunc(a){
  */
  function addOneTask(task, that){
   "use strict";
-   if (!that.has(task)){
+  console.log("addOneTask called");
+   if (!that.has(task.id)){
    that.values.push(task);
    }
   }
@@ -136,10 +141,13 @@ proto = {
    }
    return false;*/
    //return help(arg,this) !== -1;
+   console.log("arg is", arg);
     var i;
     for(i = 0; i < this.length(); i += 1){
-      if(turnArgIntoFunc(arg))
+      if(turnArgIntoFunc(arg)(this.values[i])){
+        console.log("has is", true);
         return true;
+      }
     } 
     return false;
   },
@@ -151,7 +159,9 @@ proto = {
     // console.log(this);
   //task.forEach(addOneTask());
     if(Array.isArray(task)){
+      console.log("it is an array");
       for (i = 0; i < task.length; i += 1){
+        console.log(task[i]);
           addOneTask(task[i],this);
      }
     }else{
