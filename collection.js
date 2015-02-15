@@ -64,7 +64,7 @@ function turnArgIntoFunc(a){
  */
  function addOneTask(task, that){
   "use strict";
-  console.log("addOneTask called");
+  //console.log("addOneTask called");
    if (!that.has(task.id)){
    that.values.push(task);
    }
@@ -126,7 +126,7 @@ proto = {
 	   "use strict";
 	   
 	   arg = turnArgIntoFunc(arg);
-
+     console.log("arg is", arg);
 	   for(var i = 0; i < this.length(); i += 1){
 	       if (arg(this.values[ i ])){
 	           return this.values[ i ];
@@ -145,11 +145,11 @@ proto = {
    }
    return false;*/
    //return help(arg,this) !== -1;
-   console.log("arg is", arg);
+   //console.log("arg is", arg);
     var i;
     for(i = 0; i < this.length(); i += 1){
       if(turnArgIntoFunc(arg)(this.values[i])){
-        console.log("has is", true);
+        //console.log("has is", true);
         return true;
       }
     } 
@@ -163,9 +163,9 @@ proto = {
     // console.log(this);
   //task.forEach(addOneTask());
     if(Array.isArray(task)){
-      console.log("it is an array");
+      //console.log("it is an array");
       for (i = 0; i < task.length; i += 1){
-        console.log(task[i]);
+        //console.log(task[i]);
           addOneTask(task[i],this);
      }
     }else{
@@ -203,6 +203,32 @@ proto = {
   },
   filter: function filter(arg){
     "use strict";
+    var i, j, collection;
+    collection = makeNewCollection();
+    console.log(collection);
+
+    if(Array.isArray(arg)){
+      for(i = 0; i < arg.length; i += 1){
+       for(j = 0; j < this.length(); j += 1){
+         if(turnArgIntoFunc(arg[i])(this.values[j])){
+          collection.add(this.values[j]);
+          }
+       }   
+      } 
+    }else{
+      for(i = 0; i < this.length(); i += 1){
+        if(turnArgIntoFunc(arg)(this.values[i])){
+          collection.add(this.values[i]);
+        }
+      }
+    }
+
+    return collection;
+
+
+
+
+
   },
   forEach: function forEach(f){   // f is a function
     "use strict";

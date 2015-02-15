@@ -49,7 +49,7 @@ describe("protoMethods", function(){
     });
     it("add will add an array of task objects", function(){
        collection.add([ task, task2 ]);
-       console.log(collection.length())
+       //console.log(collection.length())
        expect(collection.length()).to.equal(2);
     });
     it("new adds a new task to the collection", function(){
@@ -70,29 +70,29 @@ describe("protoMethods", function(){
     it("removes an array of tasks", function(){
        var id = task.id, id2 = task2.id;
        collection.add([ task, task2 ]);
-       console.log(collection.length());
+       //console.log(collection.length());
        collection.remove([ id, id2 ]);
-       console.log(collection.length());
+      // console.log(collection.length());
        expect(collection.length()).to.equal(0);
     });
-/*
+
    it("get returns a task matching the function given", function(){
         var fun = function(t){
-           return t.completedTime === null;
+           return t.isCompleted();
         };
         task.toggleCompleted();
         collection.add(task, task2);
-        expect(collection.get(fun)).to.equal(task2);
+        expect(collection.get(fun)).to.equal(task);
     });
 
     it("get returns a task matching the id given", function(){
-        expect(collection.get(1) == null);
+        expect(collection.get(1) === null);
         var id = task.id;
         collection.add(task);
         expect(collection.get(id)).to.equal(task);
     });
     it("get returns a task matching the string given", function(){
-      expect(collection.get("hello") == null).to.equal(true);
+      expect(collection.get("hello") === null).to.equal(true);
 	    task.setTitle("hello");
 	    collection.add(task);
 	    expect(collection.get("hello")).to.equal(task);
@@ -101,15 +101,16 @@ describe("protoMethods", function(){
     it("get returns a task matching the regExp given", function(){
        var r = /\w+/;
        task.setTitle("title");
+       collection.add(task2);
        collection.add(task);
        expect(collection.get(r)).to.equal(task);
-    });*/
+    });
     it("has finds a task matching the function given", function(){
         var fun = function(t){
-           return t.completedTime == null;
+           return t.isCompleted();
         };
         expect(!collection.get(fun)).to.equal(true);
-        task2.toggleCompleted();
+        task.toggleCompleted();
         collection.add(task, task2);
         expect(collection.has(fun)).to.equal(true);
     });
@@ -134,11 +135,11 @@ describe("protoMethods", function(){
        collection.add(task);
        expect(collection.has(r)).to.equal(true);
     });
-/*
+
     it("filter returns a collection with tasks matching the function given", function(){
         var collection2, fun;
         fun = function(t){
-           return task.completedTime == null;
+           return task.isCompleted();
         };
         task.toggleCompleted();
         collection.add(task, task2);
@@ -146,9 +147,11 @@ describe("protoMethods", function(){
         expect(collection2.has(fun)).to.equal(true);
     });
     it("filter returns a collection with tasks matching the ids given", function(){
-       var id, id2, collection2;
+       var id, id2, collection2, task3;
        id = task.id;
        id2 = task2.id;
+       task3 = task.new();
+       collection.add(task3);
        collection.add([ task, task2 ]);
        collection2 = collection.filter([ id, id2 ]);
        expect(collection2.has(id)).to.equal(true);
@@ -170,8 +173,7 @@ describe("protoMethods", function(){
        collection.add([ task, task2 ]);
        collection2 = collection.filter(r);
        expect(collection2.has("title")).to.equal(true);
-       expect(!collection2.has("_ _")).to.equal(true);
-    });*/
+    });
 	it("forEach successfully calls a function on each task in the collection", function(){
 		 var fun = function(t){
            t.toggleCompleted();
