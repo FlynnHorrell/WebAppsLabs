@@ -33,10 +33,10 @@ function turnArgIntoFunc(a){
 	if (typeof a === "number"){
 		return function(task){
             return task.id === a;
-		}
-    }
-
-    return a;	
+		};
+  }
+  return a;	
+}
 /*	}else if (typeof a === "string"){
 		return function(task){
 			if (this.values[ n ].title === a){
@@ -135,16 +135,27 @@ proto = {
     }
    }
    return false;*/
-   return help(arg,this) !== -1;
+   //return help(arg,this) !== -1;
+    var i;
+    for(i = 0; i < this.length(); i += 1){
+      if(turnArgIntoFunc(arg))
+        return true;
+    } 
+    return false;
   },
+
   add: function add(task){              //  adds multiple tasks from an array
      "use strict";
      var i;
    //  console.log("Function: add:  this")
     // console.log(this);
   //task.forEach(addOneTask());
-    for (i = 0; i < task.length; i += 1){
-        addOneTask(task[i],this);
+    if(Array.isArray(task)){
+      for (i = 0; i < task.length; i += 1){
+          addOneTask(task[i],this);
+     }
+    }else{
+      addOneTask(task,this);
     }
   return this;
   },
@@ -161,7 +172,7 @@ proto = {
   //console.log(arg);
   if (Array.isArray(arg)){
     for (i = 0; i < arg.length; i += 1){
-        this.values.splice(help(arg,this), 1);
+        this.values.splice(help(arg, this), 1);
     }
     return this;
   }
