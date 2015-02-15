@@ -245,6 +245,11 @@ proto = {
     return printStr;
   },
   concat: function concat(){
+    var i;
+    console.log(arguments);
+    for(i = 0; i < arguments.length; i += 1 ){
+      this.add(arguments[i].values);
+    }
     return this;
   }
 };
