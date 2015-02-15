@@ -186,13 +186,16 @@ describe("protoMethods", function(){
   it("groupByTag returns an object whose keys are TaskCollections with appropriate tags", function(){
       var task3, myObj;
       task3 = Task.new();
-      task.addTag("hi");
-      task2.addTag("hi2");
+      task.setTitle("hello");
+      task.addTags(["hi", "123" ]);
+      task2.addTags(["hi2", "hi"]);
       task3.addTag("hi");
       collection.add([ task, task2, task3 ]);
       myObj = collection.groupByTag();
-      expect(myObj["hi"].length()).to.equal(2);
+      expect(myObj["hi"].length()).to.equal(3);
+      expect(myObj["hi"].get("hello")).to.equal(task);
       expect(myObj["hi2"].length()).to.equal(1);
+      expect(myObj["123"].length()).to.equal(1);
   });
   it("print returns an empty string for an empty collection ", function(){
       expect(collection.print()).to.equal("");

@@ -232,10 +232,22 @@ proto = {
   },
   groupByTag: function groupByTag(){
     "use strict";
-    var tagGroup;
-    tagGroup = Object.create();
-
-
+    var tagGroup, newKeys, i, j;
+    tagGroup = Object.create(Object);
+    for(i = 0; i < this.length(); i +=1 ){
+      newKeys = this.values[i].tags
+      //console.log(newKeys);
+      for(j = 0; j < newKeys.length; j += 1){
+        if(tagGroup[newKeys[j]] != null){
+          //tagGroup[newKeys[j]].add(newKeys[j]);
+          tagGroup[newKeys[j]].add(this.values[i]);
+        }else{
+        tagGroup[newKeys[j]] = TaskCollection.new();
+        tagGroup[newKeys[j]].add(this.values[i])
+        }
+      }
+    }
+    //console.log(Object.keys(tagGroup));
     return tagGroup;
   },
   print: function print(){
@@ -246,7 +258,7 @@ proto = {
   },
   concat: function concat(){
     var i;
-    console.log(arguments);
+    //console.log(arguments);
     for(i = 0; i < arguments.length; i += 1 ){
       this.add(arguments[i].values);
     }
