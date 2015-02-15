@@ -49,7 +49,7 @@ describe("protoMethods", function(){
     });
     it("add will add an array of task objects", function(){
        collection.add([ task, task2 ]);
-       //console.log(collection.length())
+       // console.log(collection.length())
        expect(collection.length()).to.equal(2);
     });
     it("new adds a new task to the collection", function(){
@@ -70,7 +70,7 @@ describe("protoMethods", function(){
     it("removes an array of tasks", function(){
        var id = task.id, id2 = task2.id;
        collection.add([ task, task2 ]);
-       //console.log(collection.length());
+       // console.log(collection.length());
        collection.remove([ id, id2 ]);
       // console.log(collection.length());
        expect(collection.length()).to.equal(0);
@@ -187,33 +187,40 @@ describe("protoMethods", function(){
       var task3, myObj;
       task3 = Task.new();
       task.setTitle("hello");
-      task.addTags(["hi", "123" ]);
-      task2.addTags(["hi2", "hi"]);
+      task.addTags([ "hi", "123" ]);
+      task2.addTags([ "hi2", "hi" ]);
       task3.addTag("hi");
       collection.add([ task, task2, task3 ]);
       myObj = collection.groupByTag();
-      expect(myObj["hi"].length()).to.equal(3);
-      expect(myObj["hi"].get("hello")).to.equal(task);
-      expect(myObj["hi2"].length()).to.equal(1);
-      expect(myObj["123"].length()).to.equal(1);
+      expect(myObj.hi.length()).to.equal(3);
+      expect(myObj.hi.get("hello")).to.equal(task);
+      expect(myObj.hi2.length()).to.equal(1);
+      expect(myObj[ "123" ].length()).to.equal(1);
   });
   it("print returns an empty string for an empty collection ", function(){
       expect(collection.print()).to.equal("");
-  });/*
+  });
   it("print returns an appropriate string for an collection with one task ", function(){
+      task.setTitle("theTask");
       collection.add(task);
-      //expect(collection.print()).to.equal("");
+      expect(collection.print()).to.equal("theTask\n");
       collection.remove(task.id);
       task.toggleCompleted();
-      task.addTags([1,"hi"]);
-      //expect(collection.print()).to.equal("");
+      // Date.getFullYear() Date.getMonth(), and Date.getDay()?
+      task.addTags([ 1, "hi" ]);
+      collection.add(task);
+      console.log(collection.print());
+      // expect(collection.print()).to.equal("");
   });
   it("print returns an appropriate string for an collection with multiple tasks ", function(){
+      task.setTitle("Task1");
+      task2.setTitle("Task2");
       task.toggleCompleted();
-      task2.addTags([1,2]);
+      task2.addTags([ 1, 2 ]);
       collection.add([ task, task2 ]);
-      //expect(collection.print()).to.equal("");
-  });*/
+      console.log(collection.print());
+      // expect(collection.print()).to.equal("");
+  });
   it("concat adds other TaskCollections elements to this TaskCollection", function(){
       var task3, task4, collection2, collection3;
 
