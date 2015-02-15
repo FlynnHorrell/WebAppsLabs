@@ -126,7 +126,7 @@ proto = {
 	   "use strict";
 	   
 	   arg = turnArgIntoFunc(arg);
-     console.log("arg is", arg);
+     //console.log("arg is", arg);
 	   for(var i = 0; i < this.length(); i += 1){
 	       if (arg(this.values[ i ])){
 	           return this.values[ i ];
@@ -224,16 +224,28 @@ proto = {
     }
 
     return collection;
-
-
-
-
-
   },
   forEach: function forEach(f){   // f is a function
     "use strict";
     this.values.forEach(f);
   return this;
+  },
+  groupByTag: function groupByTag(){
+    "use strict";
+    var tagGroup;
+    tagGroup = Object.create();
+
+
+    return tagGroup;
+  },
+  print: function print(){
+    var printStr = "";
+
+
+    return printStr;
+  },
+  concat: function concat(){
+    return this;
   }
 };
 

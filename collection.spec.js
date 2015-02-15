@@ -183,4 +183,54 @@ describe("protoMethods", function(){
         expect(collection.values[ 0 ].isCompleted()).to.equal(true);
         expect(collection.values[ 1 ].isCompleted()).to.equal(true);
     });
+  it("groupByTag returns an object whose keys are TaskCollections with appropriate tags", function(){
+      var task3, myObj;
+      task3 = Task.new();
+      task.addTag("hi");
+      task2.addTag("hi2");
+      task3.addTag("hi");
+      collection.add([ task, task2, task3 ]);
+      myObj = collection.groupByTag();
+      expect(myObj["hi"].length()).to.equal(2);
+      expect(myObj["hi2"].length()).to.equal(1);
+  });
+  it("print returns an empty string for an empty collection ", function(){
+      expect(collection.print()).to.equal("");
+  });/*
+  it("print returns an appropriate string for an collection with one task ", function(){
+      collection.add(task);
+      //expect(collection.print()).to.equal("");
+      collection.remove(task.id);
+      task.toggleCompleted();
+      task.addTags([1,"hi"]);
+      //expect(collection.print()).to.equal("");
+  });
+  it("print returns an appropriate string for an collection with multiple tasks ", function(){
+      task.toggleCompleted();
+      task2.addTags([1,2]);
+      collection.add([ task, task2 ]);
+      //expect(collection.print()).to.equal("");
+  });*/
+  it("concat adds other TaskCollections elements to this TaskCollection", function(){
+      var task3, task4, collection2, collection3;
+
+      collection2 = TaskCollection.new();
+      collection3 = TaskCollection.new();
+
+      task.setTitle("hi");
+      task2.setTitle("hi2");
+      task3 = Task.new();
+      task4 = Task.new();
+      task3.setTitle("bye");
+      task4.setTitle("bye2");
+
+      collection2.add([ task, task2 ]);
+      collection3.add([ task3, task4 ]);
+
+      collection.concat(collection2, collection3);
+      expect(collection.get("hi")).to.equal(task);
+      expect(collection.get("hi2")).to.equal(task2);
+      expect(collection.get("bye")).to.equal(task3);
+      expect(collection.get("bye2")).to.equal(task4);
+  });
 });
