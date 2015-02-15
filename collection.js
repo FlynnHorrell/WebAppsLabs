@@ -38,6 +38,10 @@ function turnArgIntoFunc(a){
     return function(task){
             return task.title === a;
     };
+  }else if(a instanceof RegExp){
+    return function(task){
+            return task.title.match(a);
+    }
   }
   return a;	
 }

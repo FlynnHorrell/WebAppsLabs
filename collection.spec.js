@@ -126,8 +126,8 @@ describe("protoMethods", function(){
 	    collection.add(task);
 	    expect(collection.has("hello")).to.equal(true);
     });
-/*
-	it("has finds a task matching the regExp given", function(){
+
+	 it("has finds a task matching the regExp given", function(){
 	   var r = /\w+/;
 	   expect(!collection.get(r)).to.equal(true);
        task.setTitle("title");
@@ -171,7 +171,7 @@ describe("protoMethods", function(){
        collection2 = collection.filter(r);
        expect(collection2.has("title")).to.equal(true);
        expect(!collection2.has("_ _")).to.equal(true);
-    });
+    });*/
 	it("forEach successfully calls a function on each task in the collection", function(){
 		 var fun = function(t){
            t.toggleCompleted();
@@ -180,5 +180,5 @@ describe("protoMethods", function(){
         collection.forEach(fun);
         expect(collection.values[ 0 ].isCompleted()).to.equal(true);
         expect(collection.values[ 1 ].isCompleted()).to.equal(true);
-    });*/
+    });
 });
