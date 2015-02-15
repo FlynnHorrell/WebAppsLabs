@@ -178,14 +178,24 @@ proto = {
   },
   remove: function remove(arg){
   "use strict";
-  var i;
+  var i, j;
   //console.log(arg);
   if (Array.isArray(arg)){
     for (i = 0; i < arg.length; i += 1){
-        this.values.splice(help(arg, this), 1);
+      for(j = 0; j< this.length(); j+=1){
+        if(turnArgIntoFunc(arg)){
+           this.values.splice(j, 1);
+        }
+      }    
     }
-    return this;
+  }else{
+    for(j = 0; j< this.length(); j+=1){
+        if(turnArgIntoFunc(arg)){
+           this.values.splice(j, 1);
+        }
+     }
   }
+  return this;
   },
   filter: function filter(arg){
     "use strict";

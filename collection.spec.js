@@ -59,7 +59,7 @@ describe("protoMethods", function(){
     it("new returns the created task", function(){
        collection.new().setTitle("hello");
        expect(collection.has("hello")).to.equal(true);
-    });/*
+    });
     it("remove removes a single task", function(){
        var id = task.id;
        collection.add(task);
@@ -70,7 +70,9 @@ describe("protoMethods", function(){
     it("removes an array of tasks", function(){
        var id = task.id, id2 = task2.id;
        collection.add([ task, task2 ]);
+       console.log(collection.length());
        collection.remove([ id, id2 ]);
+       console.log(collection.length());
        expect(collection.length()).to.equal(0);
     });
 /*
@@ -117,14 +119,14 @@ describe("protoMethods", function(){
         collection.add(task);
         expect(collection.has(id)).to.equal(true);
     });
-/*
+
     it("has finds a task matching the string given", function(){
 		expect(!collection.get("hello")).to.equal(true);
 	    task.setTitle("hello");
 	    collection.add(task);
 	    expect(collection.has("hello")).to.equal(true);
     });
-
+/*
 	it("has finds a task matching the regExp given", function(){
 	   var r = /\w+/;
 	   expect(!collection.get(r)).to.equal(true);
