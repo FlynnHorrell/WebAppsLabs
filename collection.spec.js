@@ -145,6 +145,7 @@ describe("protoMethods", function(){
         collection.add(task, task2);
         collection2 = collection.filter(fun);
         expect(collection2.has(fun)).to.equal(true);
+        expect(collection2.length()).to.equal(1);
     });
     it("filter returns a collection with tasks matching the ids given", function(){
        var id, id2, collection2, task3;
