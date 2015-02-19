@@ -44,19 +44,6 @@ function turnArgIntoFunc(a){
   }
   return a;
 }
-/*	}else if (typeof a === "string"){
-		return function(task){
-			if (this.values[ n ].title === a){
-				return this.values[ n ];
-			}
-		}
-	}
-	return function(task){
-	if (this.values[ n ].title.match(a)){
-		return this.values[ n ];
-	    }
-    }
-	}*/
 
 /*
  *       Prototype / Instance methods
@@ -68,47 +55,6 @@ function turnArgIntoFunc(a){
    that.values.push(task);
    }
   }
-
-/* function help(a, that){
-  "use strict";
-   var i, id;
-   id = -1;
-   console.log("inside help", that);
-   console.log("inside help", typeof a)
-   if (typeof a === "function"){
-     for (i = 0; i < that.values.length; i += 1){
-       if (a(that.values[ i ])){
-        id = i;
-        break;
-       }
-     }
-   }else if (typeof a === "number"){
-     for (i = 0; i < that.values.length; i += 1){
-       if (a === that.values[ i ].id){
-         id = i;
-         break;
-       }
-      }
-   }else if (typeof a === "string"){
-    console.log(a);
-    console.log(that);
-     for (i = 0; i < that.values.length; i += 1){
-       if (a === that.values[ i ].title){
-         id = i;
-         break;
-       }
-      }
-   }else {
-     for (i = 0; i < that.values.length; i += 1){
-       if (that.values[ i ].title.match(a)){
-        id = i;
-        break;
-        }
-     }
-   }
-   console.log("inside help", id);
-   return id;
-}*/
 
 function printTask(task){
   "use strict";
@@ -159,13 +105,6 @@ proto = {
 
   has: function has(arg){
   "use strict";
- /* var i;
-  for(i = 0;i<this.values.length;i+=1){
-    if(arg === this.values[i]){
-      return true;
-    }
-   }
-   return false;*/
    // return help(arg,this) !== -1;
    // console.log("arg is", arg);
     var i;
@@ -205,18 +144,19 @@ proto = {
   remove: function remove(arg){
   "use strict";
   var i, j;
-  // onsole.log(arg);
+  // console.log(arg);
   if (Array.isArray(arg)){
     for (i = 0; i < arg.length; i += 1){
       for (j = 0; j < this.length(); j += 1){
-        if (turnArgIntoFunc(arg)){
+        if (turnArgIntoFunc(arg[ i ])(this.values[ j ])){
            this.values.splice(j, 1);
         }
       }
     }
   }else {
+    arg = turnArgIntoFunc(arg);
     for (j = 0; j < this.length(); j += 1){
-        if (turnArgIntoFunc(arg)){
+        if (arg(this.values[ j ])){
            this.values.splice(j, 1);
         }
      }

@@ -68,12 +68,13 @@ describe("protoMethods", function(){
        expect(collection.length()).to.equal(0);
     });
     it("removes an array of tasks", function(){
-       var id = task.id, id2 = task2.id;
+       var id = task.id, id2 = task2.id, task3 = Task.new();
        collection.add([ task, task2 ]);
        // console.log(collection.length());
+       collection.add(task3);
        collection.remove([ id, id2 ]);
       // console.log(collection.length());
-       expect(collection.length()).to.equal(0);
+       expect(collection.length()).to.equal(1);
     });
 
    it("get returns a task matching the function given", function(){
@@ -211,7 +212,6 @@ describe("protoMethods", function(){
       // Date.getFullYear() Date.getMonth(), and Date.getDay()?
       task.addTags([ 1, "hi" ]);
       collection.add(task);
-      console.log(collection.print());
       // expect(collection.print()).to.equal("");
   });
   it("print returns an appropriate string for an collection with multiple tasks ", function(){
@@ -220,7 +220,6 @@ describe("protoMethods", function(){
       task.toggleCompleted();
       task2.addTags([ 1, 2 ]);
       collection.add([ task, task2 ]);
-      console.log(collection.print());
       // expect(collection.print()).to.equal("");
   });
   it("concat adds other TaskCollections elements to this TaskCollection", function(){
