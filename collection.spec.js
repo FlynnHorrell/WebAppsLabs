@@ -169,10 +169,11 @@ describe("protoMethods", function(){
     it("filter returns a collection with tasks matching the regExp given", function(){
        var r = /\w+/, collection2;
        task.setTitle("title");
-       task2.setTitle("_ _");
+       task2.setTitle("");
        collection.add([ task, task2 ]);
        collection2 = collection.filter(r);
        expect(collection2.has("title")).to.equal(true);
+       expect(collection2.length()).to.equal(1);
     });
 	it("forEach successfully calls a function on each task in the collection", function(){
 		 var fun = function(t){
