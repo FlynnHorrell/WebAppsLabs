@@ -44,71 +44,13 @@ function turnArgIntoFunc(a){
   }
   return a;
 }
-/*	}else if (typeof a === "string"){
-		return function(task){
-			if (this.values[ n ].title === a){
-				return this.values[ n ];
-			}
-		}
-	}
-	return function(task){
-	if (this.values[ n ].title.match(a)){
-		return this.values[ n ];
-	    }
-    }
-	}*/
 
-/*
- *       Prototype / Instance methods
- */
  function addOneTask(task, that){
   "use strict";
-  // console.log("addOneTask called");
    if (!that.has(task.id)){
    that.values.push(task);
    }
-  }
-
-/* function help(a, that){
-  "use strict";
-   var i, id;
-   id = -1;
-   console.log("inside help", that);
-   console.log("inside help", typeof a)
-   if (typeof a === "function"){
-     for (i = 0; i < that.values.length; i += 1){
-       if (a(that.values[ i ])){
-        id = i;
-        break;
-       }
-     }
-   }else if (typeof a === "number"){
-     for (i = 0; i < that.values.length; i += 1){
-       if (a === that.values[ i ].id){
-         id = i;
-         break;
-       }
-      }
-   }else if (typeof a === "string"){
-    console.log(a);
-    console.log(that);
-     for (i = 0; i < that.values.length; i += 1){
-       if (a === that.values[ i ].title){
-         id = i;
-         break;
-       }
-      }
-   }else {
-     for (i = 0; i < that.values.length; i += 1){
-       if (that.values[ i ].title.match(a)){
-        id = i;
-        break;
-        }
-     }
-   }
-   console.log("inside help", id);
-   return id;
-}*/
+}
 
 function printTask(task){
   "use strict";
@@ -147,8 +89,8 @@ proto = {
    get: function get(arg){
 	   "use strict";
      var i;
-	   arg = turnArgIntoFunc(arg);
-     // console.log("arg is", arg);
+	 arg = turnArgIntoFunc(arg);
+
 	   for (i = 0; i < this.length(); i += 1){
 	       if (arg(this.values[ i ])){
 	           return this.values[ i ];
@@ -159,19 +101,9 @@ proto = {
 
   has: function has(arg){
   "use strict";
- /* var i;
-  for(i = 0;i<this.values.length;i+=1){
-    if(arg === this.values[i]){
-      return true;
-    }
-   }
-   return false;*/
-   // return help(arg,this) !== -1;
-   // console.log("arg is", arg);
     var i;
     for (i = 0; i < this.length(); i += 1){
       if (turnArgIntoFunc(arg)(this.values[ i ])){
-        // console.log("has is", true);
         return true;
       }
     }
@@ -181,13 +113,9 @@ proto = {
   add: function add(task){              //  adds multiple tasks from an array
      "use strict";
      var i;
-   //  console.log("Function: add:  this")
-    // console.log(this);
-  // task.forEach(addOneTask());
+
     if (Array.isArray(task)){
-      // console.log("it is an array");
       for (i = 0; i < task.length; i += 1){
-        // console.log(task[i]);
           addOneTask(task[ i ], this);
      }
     }else {
@@ -205,29 +133,28 @@ proto = {
   remove: function remove(arg){
   "use strict";
   var i, j;
-  // onsole.log(arg);
+
   if (Array.isArray(arg)){
     for (i = 0; i < arg.length; i += 1){
       for (j = 0; j < this.length(); j += 1){
-        if (turnArgIntoFunc(arg)){
+        if (turnArgIntoFunc(arg[ i ])(this.values[ j ])){
            this.values.splice(j, 1);
         }
       }
     }
-  }else {
-    for (j = 0; j < this.length(); j += 1){
-        if (turnArgIntoFunc(arg)){
-           this.values.splice(j, 1);
-        }
-     }
   }
+  for (j = 0; j < this.length(); j += 1){
+      if (turnArgIntoFunc(arg)){
+        this.values.splice(j, 1);
+      }
+   }
   return this;
   },
   filter: function filter(arg){
     "use strict";
     var i, j, collection;
     collection = makeNewCollection();
-    // console.log(arg);
+
     if (Array.isArray(arg)){
       for (i = 0; i < arg.length; i += 1){
        for (j = 0; j < this.length(); j += 1){
@@ -257,10 +184,8 @@ proto = {
     tagGroup = Object.create(Object);
     for (i = 0; i < this.length(); i += 1){
       newKeys = this.values[ i ].tags;
-      // console.log(newKeys);
       for (j = 0; j < newKeys.length; j += 1){
         if (tagGroup[ newKeys[ j ] ] != null){
-          // tagGroup[newKeys[j]].add(newKeys[j]);
           tagGroup[ newKeys[ j ] ].add(this.values[ i ]);
         }else {
         tagGroup[ newKeys[ j ] ] = TaskCollection.new();
@@ -268,7 +193,6 @@ proto = {
         }
       }
     }
-    // console.log(Object.keys(tagGroup));
     return tagGroup;
   },
   print: function print(){
@@ -285,7 +209,7 @@ proto = {
   concat: function concat(){
     "use strict";
     var i;
-    // console.log(arguments);
+
     for (i = 0; i < arguments.length; i += 1){
       this.add(arguments[ i ].values);
     }
