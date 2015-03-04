@@ -97,8 +97,19 @@ proto = {
        }
        return this;
    },
-   remove:  function remove(){
+   remove:  function remove(item){
+       // removes an item from the list and re-arranges it
+       var temp = item;
+       var temp2 = sentinel.next;
 
+       while (temp2.next != temp){
+         temp2 = temp2.next;
+         if (temp2 === temp){
+             temp2.next = temp.next;
+             temp.next.prev = temp2;
+         }
+       }
+       return item.val;
    },
    pop:  function pop(){
 
