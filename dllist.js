@@ -44,7 +44,7 @@ proto = {
    insertAt:  function insertAt(){
 
    },
-   unchift:  function unshift(){
+   unshift:  function unshift(){
 
    },
    push:  function push(){
