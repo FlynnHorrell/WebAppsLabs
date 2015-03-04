@@ -48,13 +48,20 @@ proto = {
    },
    first:  function first(){
       // if the list is not empty, return sentinel's next
-       if (isEmpty()){
-         throw "Error: empty list"
-       return sentinel.next; 
-       }
+      if (isEmpty()){
+          throw "Error: empty list";
+      }
+      return sentinel.next; 
    },
-   insertAt:  function insertAt(){
-
+   last:  function last(){
+      // works same as first(), but uses prev
+      if (isEmpty()){
+         throw "Error: empty list";
+      }
+      return sentinel.prev
+   }
+   insertAt:  function insertAt(val, prev){
+       var temp = val;
    },
    unshift:  function unshift(){
 
