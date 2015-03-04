@@ -33,7 +33,7 @@ function makeNewList() {
 proto = {
    // Add instance methods here
    isEmpty:  function isEmpty(){
-
+       return (sentinel.next === sentinel && sentinel.prev === sentinel);
    },
    length:  function length(){
 
