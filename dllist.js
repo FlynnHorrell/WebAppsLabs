@@ -61,16 +61,41 @@ proto = {
       return sentinel.prev
    }
    insertAt:  function insertAt(val, prev){
+      /*
+        creates 2 temp vars, the val to be inserted and the one it will be inserted after
+        re-arranges the nexts and prevs so that the pointers are correct, and old ones are overwritten
+      */
        var temp = val;
-   },
-   unshift:  function unshift(){
+       var temp2 = prev;
 
+       temp.next = temp2.next;
+       temp.prev = temp2;
+       temp2.next.prev = temp;
+       temp2.next = temp;
+       return temp;
    },
-   push:  function push(){
-
+   unshift:  function unshift(val){
+      // inserts at beginning of list (after sentinel)
+       insertAt(val, sentinel);
+       return val;
    },
-   endAt:  function endAt(){
+   push:  function push(val){
+      // inserts at end of list (before sentinel)
+       insertAt(val, sentiel.prev);
+       return val;
+   },
+   endAt:  function endAt(item){
+      // finds the item, and ends the list at it
+       var temp = sentinel.next;
 
+       while (sentinel.next != item){
+         temp = temp.next;
+         if (temp === item){
+            item.next = sentinel;
+            sentinel.prev = item;
+         }
+       }
+       return this;
    },
    remove:  function remove(){
 
