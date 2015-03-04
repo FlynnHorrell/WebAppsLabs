@@ -36,10 +36,22 @@ proto = {
        return (sentinel.next === sentinel && sentinel.prev === sentinel);
    },
    length:  function length(){
+       // uses an accumulator and temp node to get length
+       var i = 0; // accs the length
+       var temp = sentinel;
 
+       while (temp.next != sentinel){
+         i += 1;
+         temp = temp.next;
+       }
+       return i;
    },
    first:  function first(){
-
+      // if the list is not empty, return sentinel's next
+       if (isEmpty()){
+         throw "Error: empty list"
+       return sentinel.next; 
+       }
    },
    insertAt:  function insertAt(){
 
