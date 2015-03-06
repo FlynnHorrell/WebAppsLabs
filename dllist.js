@@ -112,7 +112,10 @@ proto = {
        return item.val;
    },
    pop:  function pop(){
-
+       if (isEmpty()){
+         throw "Error: empty list";
+       }
+       remove(this.last());
    },
    shift:  function shift(){
 
