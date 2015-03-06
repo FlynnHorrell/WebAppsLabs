@@ -48,14 +48,14 @@ proto = {
    },
    first:  function first(){
       // if the list is not empty, return sentinel's next
-      if (isEmpty()){
+      if (lst.isEmpty()){
           throw "Error: empty list";
       }
       return sentinel.next; 
    },
    last:  function last(){
       // works same as first(), but uses prev
-      if (isEmpty()){
+      if (lst.isEmpty()){
          throw "Error: empty list";
       }
       return sentinel.prev
@@ -95,7 +95,7 @@ proto = {
             sentinel.prev = item;
          }
        }
-       return this;
+       return lst;
    },
    remove:  function remove(item){
        // removes an item from the list and re-arranges it
@@ -112,22 +112,21 @@ proto = {
        return item.val;
    },
    pop:  function pop(){
-       if (isEmpty()){
-         throw "Error: empty list";
-       }
+      // simply call remove on the last element, last() will throw it's own exception
        remove(this.last());
    },
    shift:  function shift(){
-
+       // call remove on the first element, first() will throw it's own exception
+       remove(this.first());
    },
-   isFirst:  function isFirst(){
-
+   isFirst:  function isFirst(item){
+       return (item === this.first())
    },
-   isLast:  function isLast(){
-
+   isLast:  function isLast(item){
+       return (item === this.last())
    },
    iterator:  function iterator(){
-
+       return Iterator;
    },
    forEach:  function forEach(){
 
