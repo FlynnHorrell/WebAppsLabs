@@ -61,10 +61,8 @@ proto = {
       return lst.sentinel.prev
    }
    insertAt:  function insertAt(val, node){
-      /*
-        creates 2 temp vars, the val to be inserted and the one it will be inserted after
-        re-arranges the nexts and prevs so that the pointers are correct, and old ones are overwritten
-      */
+       // creates a temp var from the val given
+       // inserts the new list item such that the lists structure is maintained
        var temp = {val: val, next: null, prev: null};
 
        temp.next = node.next;
@@ -120,16 +118,18 @@ proto = {
        remove(this.first());
    },
    isFirst:  function isFirst(item){
-       return (item === this.first())
+       return (item.first())
    },
    isLast:  function isLast(item){
-       return (item === this.last())
+       return (item.last())
    },
    iterator:  function iterator(){
        return Iterator;
    },
-   forEach:  function forEach(){
-
+   forEach:  function forEach(f){
+    // applies a function f to each VALUE in the list
+    // returns the list
+    Iterator.forEach;
    },
    toArray:  function toArray(){
 
