@@ -68,12 +68,13 @@ describe("protoMethods", function(){
        expect(collection.length()).to.equal(0);
     });
     it("removes an array of tasks", function(){
-       var id = task.id, id2 = task2.id;
+       var id = task.id, id2 = task2.id, task3 = Task.new();
        collection.add([ task, task2 ]);
        // console.log(collection.length());
+       collection.add(task3);
        collection.remove([ id, id2 ]);
       // console.log(collection.length());
-       expect(collection.length()).to.equal(0);
+       expect(collection.length()).to.equal(1);
     });
 
    it("get returns a task matching the function given", function(){
@@ -145,6 +146,7 @@ describe("protoMethods", function(){
         collection.add(task, task2);
         collection2 = collection.filter(fun);
         expect(collection2.has(fun)).to.equal(true);
+        expect(collection2.length()).to.equal(1);
     });
     it("filter returns a collection with tasks matching the ids given", function(){
        var id, id2, collection2, task3;
@@ -169,10 +171,11 @@ describe("protoMethods", function(){
     it("filter returns a collection with tasks matching the regExp given", function(){
        var r = /\w+/, collection2;
        task.setTitle("title");
-       task2.setTitle("_ _");
+       task2.setTitle("");
        collection.add([ task, task2 ]);
        collection2 = collection.filter(r);
        expect(collection2.has("title")).to.equal(true);
+       expect(collection2.length()).to.equal(1);
     });
 	it("forEach successfully calls a function on each task in the collection", function(){
 		 var fun = function(t){
@@ -196,7 +199,7 @@ describe("protoMethods", function(){
       expect(myObj.hi.get("hello")).to.equal(task);
       expect(myObj.hi2.length()).to.equal(1);
       expect(myObj[ "123" ].length()).to.equal(1);
-  });
+  });/*
   it("print returns an empty string for an empty collection ", function(){
       expect(collection.print()).to.equal("");
   });
@@ -209,7 +212,6 @@ describe("protoMethods", function(){
       // Date.getFullYear() Date.getMonth(), and Date.getDay()?
       task.addTags([ 1, "hi" ]);
       collection.add(task);
-      console.log(collection.print());
       // expect(collection.print()).to.equal("");
   });
   it("print returns an appropriate string for an collection with multiple tasks ", function(){
@@ -218,9 +220,8 @@ describe("protoMethods", function(){
       task.toggleCompleted();
       task2.addTags([ 1, 2 ]);
       collection.add([ task, task2 ]);
-      console.log(collection.print());
       // expect(collection.print()).to.equal("");
-  });
+  });*/
   it("concat adds other TaskCollections elements to this TaskCollection", function(){
       var task3, task4, collection2, collection3;
 

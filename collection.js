@@ -50,7 +50,11 @@ function turnArgIntoFunc(a){
    if (!that.has(task.id)){
    that.values.push(task);
    }
+<<<<<<< HEAD
 }
+=======
+  }
+>>>>>>> 6b658a962d4a3530525eaf8167f352618b9a8e8b
 
 function printTask(task){
   "use strict";
@@ -101,6 +105,11 @@ proto = {
 
   has: function has(arg){
   "use strict";
+<<<<<<< HEAD
+=======
+   // return help(arg,this) !== -1;
+   // console.log("arg is", arg);
+>>>>>>> 6b658a962d4a3530525eaf8167f352618b9a8e8b
     var i;
     for (i = 0; i < this.length(); i += 1){
       if (turnArgIntoFunc(arg)(this.values[ i ])){
@@ -133,7 +142,11 @@ proto = {
   remove: function remove(arg){
   "use strict";
   var i, j;
+<<<<<<< HEAD
 
+=======
+  // console.log(arg);
+>>>>>>> 6b658a962d4a3530525eaf8167f352618b9a8e8b
   if (Array.isArray(arg)){
     for (i = 0; i < arg.length; i += 1){
       for (j = 0; j < this.length(); j += 1){
@@ -142,6 +155,16 @@ proto = {
         }
       }
     }
+<<<<<<< HEAD
+=======
+  }else {
+    arg = turnArgIntoFunc(arg);
+    for (j = 0; j < this.length(); j += 1){
+        if (arg(this.values[ j ])){
+           this.values.splice(j, 1);
+        }
+     }
+>>>>>>> 6b658a962d4a3530525eaf8167f352618b9a8e8b
   }
   for (j = 0; j < this.length(); j += 1){
       if (turnArgIntoFunc(arg)){
