@@ -33,14 +33,14 @@ function makeNewList() {
 proto = {
    // Add instance methods here
    isEmpty:  function isEmpty(){
-       return (sentinel.next === sentinel && sentinel.prev === sentinel);
+       return (lst.sentinel.next === lst.sentinel && lst.sentinel.prev === lst.sentinel);
    },
    length:  function length(){
        // uses an accumulator and temp node to get length
        var i = 0; // accs the length
-       var temp = sentinel;
+       var temp = lst.sentinel;
 
-       while (temp.next != sentinel){
+       while (temp.next != lst.sentinel){
          i += 1;
          temp = temp.next;
        }
@@ -51,62 +51,62 @@ proto = {
       if (lst.isEmpty()){
           throw "Error: empty list";
       }
-      return sentinel.next; 
+      return lst.sentinel.next; 
    },
    last:  function last(){
       // works same as first(), but uses prev
       if (lst.isEmpty()){
          throw "Error: empty list";
       }
-      return sentinel.prev
+      return lst.sentinel.prev
    }
-   insertAt:  function insertAt(val, prev){
+   insertAt:  function insertAt(val, node){
       /*
         creates 2 temp vars, the val to be inserted and the one it will be inserted after
         re-arranges the nexts and prevs so that the pointers are correct, and old ones are overwritten
       */
-       var temp = val;
-       var temp2 = prev;
+       var temp = {val: val, next: null, prev: null};
 
-       temp.next = temp2.next;
-       temp.prev = temp2;
-       temp2.next.prev = temp;
-       temp2.next = temp;
+       temp.next = node.next;
+       temp.prev = node;
+       node.next.prev = temp;
+       node.next = temp;
        return temp;
    },
    unshift:  function unshift(val){
       // inserts at beginning of list (after sentinel)
-       insertAt(val, sentinel);
+       insertAt(val, lst.sentinel);
        return val;
    },
    push:  function push(val){
       // inserts at end of list (before sentinel)
-       insertAt(val, sentiel.prev);
+       insertAt(val, lst.sentiel.prev);
        return val;
    },
    endAt:  function endAt(item){
       // finds the item, and ends the list at it
-       var temp = sentinel.next;
+       var temp = lst.sentinel.next;
 
-       while (sentinel.next != item){
+       while (lst.sentinel.next != item){
          temp = temp.next;
          if (temp === item){
-            item.next = sentinel;
-            sentinel.prev = item;
+            item.next = lst.sentinel;
+            lst.sentinel.prev = item;
          }
        }
        return lst;
    },
    remove:  function remove(item){
        // removes an item from the list and re-arranges it
-       var temp = item;
+       var temp = lst.first();
        var temp2 = sentinel.next;
 
-       while (temp2.next != temp){
-         temp2 = temp2.next;
-         if (temp2 === temp){
-             temp2.next = temp.next;
-             temp.next.prev = temp2;
+       while (temp.next != item){
+         temp = temp.next;
+       }
+      if (temp.next === item){
+          temp.next = item.next;
+          item.next.prev = temp;
          }
        }
        return item.val;
