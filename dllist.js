@@ -125,9 +125,10 @@ proto = {
    },
    iterator:  function iterator(){
        var i = this.sentinel;
-       var f = function next() { i = i.next; return i;};
-       var g = function hasNext() { return i.next !== lst.sentinel;};
-       return Iterator.new(f, g);
+       return Iterator.new(
+           function next() { i = i.next; return i.val;};
+           function hasNext() { return i.next !== lst.sentinel;};
+           );
    },
    forEach:  function forEach(f){
     // applies a function f to each VALUE in the list
@@ -135,15 +136,21 @@ proto = {
     this.iterator().forEach(f);
    },
    toArray:  function toArray(){
-
+   this.iterator().toArray();
+   return lst.
    },
-   iterateFrom:  function iterateFrom(){
-
+   iterateFrom:  function iterateFrom(li){
+       Iterator.new(
+           function next() { li = li.next; return li.val;};
+           function hasNext() {return li.next !== lst.sentinel;};
+           );
    },
-   reverseIterateFrom:  function reverseIterateFrom(){
-      
+   reverseIterateFrom:  function reverseIterateFrom(li){
+       Iterator.new(
+           function next() { li = li.prev; return li.val;};
+           function hasNext() {return li.prev !== lst.sentinel;};
+           );
    }
-
 };
 
 
