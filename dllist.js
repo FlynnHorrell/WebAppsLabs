@@ -118,18 +118,21 @@ proto = {
        remove(this.first());
    },
    isFirst:  function isFirst(item){
-       return (item.first())
+       return (this.first() === item)
    },
    isLast:  function isLast(item){
-       return (item.last())
+       return (this.first() === item)
    },
    iterator:  function iterator(){
-       return Iterator;
+       var i = this.sentinel;
+       var f = function next() { i = i.next; return i;};
+       var g = function hasNext() { return i.next !== lst.sentinel;};
+       return Iterator.new(f, g);
    },
    forEach:  function forEach(f){
     // applies a function f to each VALUE in the list
     // returns the list
-    Iterator.forEach;
+    this.iterator().forEach(f);
    },
    toArray:  function toArray(){
 
