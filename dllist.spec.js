@@ -19,8 +19,8 @@ describe("dllist", function(){
   beforeEach(function() {
     list = DLList.new();
     value += 1;
-    item = {val: value, next: null, prev: null};
-    item = {val: value + 1, next: null, prev: null};
+    item = { val: value, next: null, prev: null };
+    item = { val: value + 1, next: null, prev: null };
   });
 
   it("isEmpty is true when empty", function(){
@@ -49,7 +49,7 @@ describe("dllist", function(){
   });
   it("insertAt correctly inserts items", function(){
       list.push(item);
-      list.insertAt(3,item);
+      list.insertAt(3, item);
       expect(list.last().value).to.equal(3);
   });
   it("unshift adds a new element at the beginning of the list", function(){
@@ -62,7 +62,7 @@ describe("dllist", function(){
       list.push(item);
       expect(list.isLast(item)).to.equal(true);
       list.push(item2);
-      expect(list.isLast(item2).to.equal(true);
+      expect(list.isLast(item2)).to.equal(true);
   });
   it("endAt returns the correct list", function(){
       list.push(item);
@@ -109,7 +109,9 @@ describe("dllist", function(){
       expect(it.hasOwnProperty(hasNext)).to.equal(true);
   });
   it("forEach applies a function to each value in the list", function(){
-      var fun = function(){ this.value = 0;};
+      var fun = function(){
+        this.value = 0;
+      };
       list.push(item);
       list.push(item2);
       list.forEach(fun);
@@ -117,7 +119,7 @@ describe("dllist", function(){
       expect(list.last().value).to.equal(0);
   });
   it("toArray returns an array of the list's values", function(){
-      var arr = [item.value, item2.value];
+      var arr = [ item.value, item2.value ];
       list.push(item);
       list.push(item2);
       expect(list.toArray()).to.equal(arr);
@@ -130,7 +132,7 @@ describe("dllist", function(){
       expect(it.next()).to.equal(item);
       expect(it.next()).to.equal(item2);
   });
-  it("reverseIterateFrom  returns an iterator that starts at the item and ends at the beginning of the lsit", function(){
+  it("reverseIterateFrom  returns an iterator that starts at the end", function(){
       var it;
       list.push(item);
       list.push(item2);
