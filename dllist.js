@@ -16,12 +16,10 @@ function makeNewList() {
    var lst, sentinel;
 
    lst = Object.create(proto);
-   sentinel = {
-      value: null,
-      next: sentinel,
-      prev: sentinel
-   };
-   this.sentinel = sentinel;
+   sentinel = { value: null }; 
+   sentinel.next = sentinel; 
+   sentinel.prev = sentinel;
+   lst.sentinel = sentinel;
    return lst;
 }
 
@@ -61,7 +59,7 @@ proto = {
    insertAt: function insertAt(val, node){
        // creates a temp var from the val given
        // inserts the new list item such that the lists structure is maintained
-       var temp = { val: val, next: null, prev: null };
+       var temp = { value: val, next: null, prev: null };
 
        temp.next = node.next;
        temp.prev = node;
@@ -76,20 +74,20 @@ proto = {
    },
    push: function push(val){
       // inserts at end of list (before sentinel)
-       this.insertAt(val, this.sentiel.prev);
+       this.insertAt(val, this.sentinel.prev);
        return val;
    },
    endAt: function endAt(item){
       // finds the item, and ends the list at it
-       var temp = this.sentinel.next;
+       var temp = this.sentinel;
 
-       while (this.sentinel.next !== item){
+       while (temp !== item){
          temp = temp.next;
-         if (temp === item){
-            item.next = this.sentinel;
-            this.sentinel.prev = item;
-         }
        }
+        if (temp === item){
+            temp.next = this.sentinel;
+            this.sentinel.prev = temp;
+         }
        return this;
    },
    remove: function remove(item){
@@ -107,17 +105,17 @@ proto = {
    },
    pop: function pop(){
       // simply call remove on the last element, last() will throw it's own exception
-       this.remove(this.last());
+       return this.remove(this.last());
    },
    shift: function shift(){
        // call remove on the first element, first() will throw it's own exception
-       this.remove(this.first());
+       return this.remove(this.first());
    },
    isFirst: function isFirst(item){
        return this.first() === item;
    },
    isLast: function isLast(item){
-       return this.first() === item;
+       return this.last() === item;
    },
    iterator: function iterator(){
        var i = this.sentinel;

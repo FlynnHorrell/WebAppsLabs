@@ -28,38 +28,50 @@ proto = {
    // Add instance methods here
 	add: function add(item){
 		//  adds an item to the history to follow this.current, removing all elements after this.current
-		this.endAt(this.current);
-		this.insertAt(this.current);
+		if(this.current === null){
+			this.list.unshift(item);
+			this.current = this.list.first();
+		}else{
+			this.list.insertAt(item,this.current);
+			this.current = this.current.next;
+		}
+		this.list.endAt(this.current);
 		item.execute();
 	},
 	canRedo: function canRedo(){
 		// returns true if there is an element after this.current
-		return this.this.current.next !== null;
+		if(this.list.isEmpty()){
+			return false;
+		}
+		return this.current.next.value !== null;
 	},
 	canUndo: function canUndo(){
 		// returns true if the this is not empty, ie: if a command can be undone
-		return !this.isEmpty();
+		return !this.list.isEmpty();
 	},
 	redo: function redo(){
 		// advances this.current to the next item and re-executes it
 		// throws an error if the this is empty
-		if (this.this.current.next === null){
-			throw "Error: this.current is last item in hist";
+		if (this.canRedo()){
+			this.current = this.current.next;
+			this.current.value.execute();
 		}
-		this.current = this.current.next;
-		this.current.execute();
+		else{
+			throw "Cannot Redo";
+		}
 	},
 	undo: function undo(){
 		// unexecutes this.current and goes back a step in hist
 		// throws an error if there is no this.current
-		if (this.this.current === null){
+		if (this.current === null){
 			throw "Error: this.current does not exits";
 		}
-		this.current.unexecute();
+		console.log(this.current);
+		this.current.value.unexecute();
 		this.current = this.current.prev;
 	},
 	undoableIterator: function undoableIterator(){
-	    var c = this.this.current;
+	    var c = this.current;
 	    return Iterator.new(
 	        function next() {
 	        c = c.prev;
@@ -70,7 +82,7 @@ proto = {
 	        });
 	},
 	redoableIterator: function redoableIterator(){
-	    var c = this.this.current;
+	    var c = this.current;
 	    return Iterator.new(
 	        function next() {
 	            c = c.next;
