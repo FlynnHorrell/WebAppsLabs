@@ -119,43 +119,49 @@ proto = {
    },
    iterator: function iterator(){
        var i = this.sentinel;
+       var that = this;
        return Iterator.new(
            function next() {
             i = i.next;
-            return i.val;
+            return i.value;
           },
            function hasNext() {
-            return i.next !== this.sentinel;
+          //  console.log(i);
+          //  console.log("This" + this);
+            return i.next !== that.sentinel;
           }
            );
    },
    forEach: function forEach(f){
     // applies a function f to each VALUE in the list
     // returns the list
-    this.iterator().forEach(f);
+    return  this.iterator().forEach(f);
+
    },
    toArray: function toArray(){
    return this.iterator().toArray();
    },
    iterateFrom: function iterateFrom(li){
-       Iterator.new(
+       var that = this;
+       return Iterator.new(
            function next() {
             li = li.next;
-            return li.val;
+            return li.value;
           },
            function hasNext() {
-            return li.next !== this.sentinel;
+            return li.next !== that.sentinel;
           }
            );
    },
    reverseIterateFrom: function reverseIterateFrom(li){
-       Iterator.new(
+       var that = this;
+       return Iterator.new(
            function next() {
             li = li.prev;
-            return li.val;
+            return li.value;
           },
            function hasNext() {
-            return li.prev !== this.sentinel;
+            return li.prev !== that.sentinel;
           }
            );
    }

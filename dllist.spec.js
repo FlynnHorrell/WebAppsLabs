@@ -107,42 +107,52 @@ describe("dllist", function(){
       list.push(6);
       expect(list.isLast(list.sentinel.next)).to.equal(false);
       expect(list.isLast(list.sentinel.prev)).to.equal(true);
-  });/*
+  });
   it("iterator returns an iterator for the dllist", function(){
       var it = list.iterator();
-      expect(it.hasOwnProperty(next)).to.equal(true);
-      expect(it.hasOwnProperty(hasNext)).to.equal(true);
+      expect(it.hasNext()).to.equal(false);
+      list.push(1);
+      list.push(2);
+      it = list.iterator();
+      expect(it.hasNext()).to.equal(true);
+      expect(it.next()).to.equal(1);
+      expect(it.next()).to.equal(2);
+      expect(it.hasNext()).to.equal(false);
   });
   it("forEach applies a function to each value in the list", function(){
-      var fun = function(){
-        this.value = 0;
+      var fun = function(val){
+        console.log(2 * val);
       };
-      list.push(item);
-      list.push(item2);
+      list.push(15);
+      list.push(16);
       list.forEach(fun);
-      expect(list.first().value).to.equal(0);
-      expect(list.last().value).to.equal(0);
+     // expect(list.first().value).to.equal(0);
+     // expect(list.last().value).to.equal(0);
   });
   it("toArray returns an array of the list's values", function(){
-      var arr = [ item.value, item2.value ];
-      list.push(item);
-      list.push(item2);
-      expect(list.toArray()).to.equal(arr);
+      list.push(14);
+      list.push(15); 
+      expect(list.toArray()[0]).to.equal(14);
+      expect(list.toArray()[1]).to.equal(15);
   });
   it("iterateFrom returns an iterator starting from a specific item", function(){
       var it;
-      list.push(item);
-      list.push(item2);
-      it = list.iterateFrom();
-      expect(it.next()).to.equal(item);
-      expect(it.next()).to.equal(item2);
+      list.push(10);
+      list.push(11);
+      list.push(12);
+      it = list.iterateFrom(list.first());
+      expect(it.next()).to.equal(11);
+      expect(it.next()).to.equal(12);
   });
   it("reverseIterateFrom  returns an iterator that starts at the end", function(){
       var it;
-      list.push(item);
-      list.push(item2);
-      it = list.reverseIterateFrom();
-      expect(it.next()).to.equal(item2);
-      expect(it.next()).to.equal(item);
-  });*/
+      list.push(15);
+      list.push(14);
+      list.push(13);
+      list.push(12);
+      it = list.reverseIterateFrom(list.last());
+      expect(it.next()).to.equal(13);
+      expect(it.next()).to.equal(14);
+      expect(it.next()).to.equal(15);
+  });
 });
