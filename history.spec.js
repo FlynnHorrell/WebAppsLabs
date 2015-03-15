@@ -69,9 +69,21 @@ describe("history", function(){
 		expect(hist.current.value).to.equal(cmd1);
 	});/*
 	it("undoableIterator returns iterator that visits all undoable commands from current and moves backwards", function(){
-
+		var it;
+		hist.add(cmd1);
+		hist.add(cmd2);
+		it = hist.undoableIterator();
+		expect(it.next.value).to.equal(cmd1);
+		expect(it.next.value).to.equal(cmd2);
 	});
 	it("redoableIterator returns an iterator that visits all redoable commands, starting and current and moving forwards", function(){
-
+		var it;
+		hist.add(cmd1);
+		hist.add(cmd2);
+		hist.undo();
+		hist.undo();
+		it = hist.redoableIterator();
+		expect(it.next.value).to.equal(cmd1);
+		expect(it.next.value).to.equal(cmd1);
 	});*/
 });

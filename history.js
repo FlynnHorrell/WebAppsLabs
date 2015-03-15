@@ -66,7 +66,6 @@ proto = {
 		if (this.current === null){
 			throw "Error: this.current does not exits";
 		}
-		console.log(this.current);
 		this.current.value.unexecute();
 		this.current = this.current.prev;
 	},
