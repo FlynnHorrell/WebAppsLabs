@@ -30,11 +30,10 @@ function mockCommand() {
 
 // ADD YOUR TESTS HERE
 describe("history", function(){
-
 	beforeEach(function() {
-    hist = CmdHistory.new()
-   	cmd1 = mockCommand();
-   	cmd2 = mockCommand();
+    hist = CmdHistory.new();
+	cmd1 = mockCommand();
+	cmd2 = mockCommand();
   });
 
 	it("Adds a new command to history", function(){
@@ -48,8 +47,8 @@ describe("history", function(){
 		hist.add(cmd1);
 		expect(hist.canUndo()).to.equal(true);
 	});
-	it("undo unexecutes current command and moves back one step.  throws error if no current item", function(){
-		//expect(hist.undo()).to.throw(Error);
+	it("undo unexecutes current command and moves back one step.", function(){
+		// expect(hist.undo()).to.throw(Error);
 		hist.add(cmd1);
 		hist.undo();
 		expect(hist.current.value).to.equal(null);
@@ -62,28 +61,28 @@ describe("history", function(){
 		expect(hist.canRedo()).to.equal(true);
 	});
 	it("redo Advances current to the next item and executes it. throws error if no next item", function(){
-		//expect(hist.redo()).to.throw(Error);
+		// expect(hist.redo()).to.throw(Error);
 		hist.add(cmd1);
 		hist.undo();
-		hist.redo()
+		hist.redo();
 		expect(hist.current.value).to.equal(cmd1);
-	});/*
-	it("undoableIterator returns iterator that visits all undoable commands from current and moves backwards", function(){
+	});
+	it("undoableIterator visits all undoable commands from current and moves backwards", function(){
 		var it;
 		hist.add(cmd1);
 		hist.add(cmd2);
 		it = hist.undoableIterator();
-		expect(it.next.value).to.equal(cmd1);
-		expect(it.next.value).to.equal(cmd2);
+		expect(it.next()).to.equal(cmd2);
+		expect(it.next()).to.equal(cmd1);
 	});
-	it("redoableIterator returns an iterator that visits all redoable commands, starting and current and moving forwards", function(){
+	it("redoableIterator visits all redoable commands and moves forwards", function(){
 		var it;
 		hist.add(cmd1);
 		hist.add(cmd2);
 		hist.undo();
 		hist.undo();
 		it = hist.redoableIterator();
-		expect(it.next.value).to.equal(cmd1);
-		expect(it.next.value).to.equal(cmd1);
-	});*/
+		expect(it.next()).to.equal(cmd1);
+		expect(it.next()).to.equal(cmd2);
+	});
 });

@@ -19,8 +19,6 @@ describe("dllist", function(){
   beforeEach(function() {
     list = DLList.new();
     value += 1;
-    item = { val: value, next: null, prev: null };
-    item = { val: value + 1, next: null, prev: null };
   });
 
   it("isEmpty is true when empty", function(){
@@ -91,7 +89,7 @@ describe("dllist", function(){
       expect(list.pop()).to.equal(3);
   });
   it("shift removes first item and throws error if empty", function(){
-      //expect(list.shift()).to.throw(Error);
+      // expect(list.shift()).to.throw(Error);
       list.push(8);
       list.push(9);
       expect(list.shift()).to.equal(8);
@@ -131,9 +129,9 @@ describe("dllist", function(){
   });
   it("toArray returns an array of the list's values", function(){
       list.push(14);
-      list.push(15); 
-      expect(list.toArray()[0]).to.equal(14);
-      expect(list.toArray()[1]).to.equal(15);
+      list.push(15);
+      expect(list.toArray()[ 0 ]).to.equal(14);
+      expect(list.toArray()[ 1 ]).to.equal(15);
   });
   it("iterateFrom returns an iterator starting from a specific item", function(){
       var it;
@@ -141,6 +139,7 @@ describe("dllist", function(){
       list.push(11);
       list.push(12);
       it = list.iterateFrom(list.first());
+      expect(it.next()).to.equal(10);
       expect(it.next()).to.equal(11);
       expect(it.next()).to.equal(12);
   });
@@ -151,6 +150,7 @@ describe("dllist", function(){
       list.push(13);
       list.push(12);
       it = list.reverseIterateFrom(list.last());
+      expect(it.next()).to.equal(12);
       expect(it.next()).to.equal(13);
       expect(it.next()).to.equal(14);
       expect(it.next()).to.equal(15);

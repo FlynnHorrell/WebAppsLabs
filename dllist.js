@@ -16,8 +16,8 @@ function makeNewList() {
    var lst, sentinel;
 
    lst = Object.create(proto);
-   sentinel = { value: null }; 
-   sentinel.next = sentinel; 
+   sentinel = { value: null };
+   sentinel.next = sentinel;
    sentinel.prev = sentinel;
    lst.sentinel = sentinel;
    return lst;
@@ -118,8 +118,7 @@ proto = {
        return this.last() === item;
    },
    iterator: function iterator(){
-       var i = this.sentinel;
-       var that = this;
+       var i = this.sentinel, that = this;
        return Iterator.new(
            function next() {
             i = i.next;
@@ -136,13 +135,13 @@ proto = {
     // applies a function f to each VALUE in the list
     // returns the list
     return  this.iterator().forEach(f);
-
    },
    toArray: function toArray(){
    return this.iterator().toArray();
    },
    iterateFrom: function iterateFrom(li){
        var that = this;
+       li = li.prev;
        return Iterator.new(
            function next() {
             li = li.next;
@@ -155,6 +154,7 @@ proto = {
    },
    reverseIterateFrom: function reverseIterateFrom(li){
        var that = this;
+       li = li.next;
        return Iterator.new(
            function next() {
             li = li.prev;

@@ -28,11 +28,11 @@ proto = {
    // Add instance methods here
 	add: function add(item){
 		//  adds an item to the history to follow this.current, removing all elements after this.current
-		if(this.current === null){
+		if (this.current === null){
 			this.list.unshift(item);
 			this.current = this.list.first();
-		}else{
-			this.list.insertAt(item,this.current);
+		}else {
+			this.list.insertAt(item, this.current);
 			this.current = this.current.next;
 		}
 		this.list.endAt(this.current);
@@ -40,7 +40,7 @@ proto = {
 	},
 	canRedo: function canRedo(){
 		// returns true if there is an element after this.current
-		if(this.list.isEmpty()){
+		if (this.list.isEmpty()){
 			return false;
 		}
 		return this.current.next.value !== null;
@@ -55,8 +55,7 @@ proto = {
 		if (this.canRedo()){
 			this.current = this.current.next;
 			this.current.value.execute();
-		}
-		else{
+		} else {
 			throw "Cannot Redo";
 		}
 	},
@@ -70,7 +69,8 @@ proto = {
 		this.current = this.current.prev;
 	},
 	undoableIterator: function undoableIterator(){
-	    var c = this.current;
+	    return this.list.reverseIterateFrom(this.current);
+	    /*var c = this.current;
 	    return Iterator.new(
 	        function next() {
 	        c = c.prev;
@@ -78,10 +78,11 @@ proto = {
 	        },
 	        function hasNext() {
 	            return c.prev !== null;
-	        });
+	        });*/
 	},
 	redoableIterator: function redoableIterator(){
-	    var c = this.current;
+	   return this.list.iterateFrom(this.current.next);
+	    /*var c = this.current;
 	    return Iterator.new(
 	        function next() {
 	            c = c.next;
@@ -89,7 +90,7 @@ proto = {
 	        },
 	        function hasNext() {
 	            return c.next !== null;
-	        });
+	        });*/
 	}
 };
 
